@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  Chalkboard
 //
 //  Created by Kyle Allen on 11/1/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class NumberCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

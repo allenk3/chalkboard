@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  LetterCollectionViewController.swift
 //  Chalkboard
 //
 //  Created by Kyle Allen on 11/1/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class LetterCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
