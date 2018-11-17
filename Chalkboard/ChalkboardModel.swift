@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
-class ChalkboardModel {
+class ChalkboardModel{
+
+    
     
     // shared instance
     static let shared = ChalkboardModel()
@@ -74,6 +77,8 @@ class ChalkboardModel {
     
     func getRandInt (to: Int) -> Int {
         // return random Int between 0 and Int (exclusive)
+        //NEED EDIT
+        return 1
     }
     
     func getRandomWriteable () -> Writeable {

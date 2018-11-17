@@ -8,23 +8,7 @@
 
 import UIKit
 
-class SelectViewController: UIViewController, UICollectionViewDataSource {
-    
-    
-    
-    // methods
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ChalkboardModel.shared.writeableCount
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = 
-    }
-    
+class SelectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +17,8 @@ class SelectViewController: UIViewController, UICollectionViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
     }
     
     
