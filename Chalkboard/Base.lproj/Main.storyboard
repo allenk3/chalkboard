@@ -67,6 +67,8 @@
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8f-2h-DS9">
                                 <rect key="frame" x="43.5" y="221" width="288" height="309"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="GOq-Ik-VmJ" kind="embed" id="Maa-nF-Ho8"/>
                                 </connections>

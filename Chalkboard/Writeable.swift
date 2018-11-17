@@ -39,30 +39,11 @@ class Writeable: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func draw(_ rect : CGRect) {
+        self.backgroundColor = UIColor.clear
         //calculate points
-        let point1 = CGPoint(x: rect.size.width/8, y: rect.size.height-5)
-        let point3 = CGPoint(x: rect.size.width/2, y: 5)
-        let point5 = CGPoint(x: rect.size.width - (rect.size.width/8), y: rect.size.height-5)
-        let point2 = Writeable.midPoint(point1: point1, point2: point3, percentBetween: 0.6)
-        let point4 = Writeable.midPoint(point1: point3, point2: point5, percentBetween: 0.4)
         
-        
-        
-        
-        let path = UIBezierPath()
-        path.move(to: point1)
-        path.addLine(to: point2)
-        path.addLine(to: point3)
-        path.addLine(to: point4)
-        path.addLine(to: point5)
-        let crossLine = UIBezierPath()
-        crossLine.move(to: point2)
-        crossLine.addLine(to: point4)
-        path.append(crossLine)
-        UIColor.clear.setFill()
-        UIColor.white.setStroke()
-        path.stroke()
     }
     
     
