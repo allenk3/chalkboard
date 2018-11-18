@@ -22,30 +22,38 @@ class DrawViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //let demoView = Writeable(title: "hi", segments: [], frame: drawView.frame)
+        //create shape layer to add to subview's mask
         let shapeLayer = CAShapeLayer()
-        let point1 = CGPoint(x: drawView.frame.size.width/8, y: drawView.frame.size.height-5)
-        let point3 = CGPoint(x: drawView.frame.size.width/2, y: 5)
-        let point5 = CGPoint(x: drawView.frame.size.width - (drawView.frame.size.width/8), y: drawView.frame.size.height-5)
-        let point2 = Writeable.midPoint(point1: point1, point2: point3, percentBetween: 0.6)
-        let point4 = Writeable.midPoint(point1: point3, point2: point5, percentBetween: 0.4)
-        
-        
-        
-        
-        let path = UIBezierPath()
-        path.move(to: point1)
-        path.addLine(to: point2)
-        path.addLine(to: point3)
-        path.addLine(to: point4)
-        path.addLine(to: point5)
-        let crossLine = UIBezierPath()
-        crossLine.move(to: point2)
-        crossLine.addLine(to: point4)
-        path.append(crossLine)
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.lineWidth = 9.0
+        
+        //get letter wanted to display
+        let letter = ChalkboardModel.shared.writeables["letters"]![0]
+        letter.setPath(withView: drawView.frame)
+        
+        //construct path to draw full letter
+        let white = UIColor.white
+        let red = UIColor.red
+        
+        let path1 = letter.segments[0]
+        red.setStroke()
+        path1.stroke()
+        let path2 = letter.segments[1]
+        white.setStroke()
+        let path3 = letter.segments[2]
+        
+        // PROBLEM
+        // Can only add one shapeLayer to the view maybe, Going to try to fix now
+        let path = path1
+        path.append(path2)
+        path.append(path3)
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        path.stroke()
         shapeLayer.path = path.cgPath
+        
+        
+        // Trying to add another path to show drawing progress
+        // Might have to draw model shape with draw: in view, then add CAShape for the progress of the user.
+
         drawView.layer.mask = shapeLayer
         
         

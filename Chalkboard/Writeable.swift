@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Writeable: UIView {
+class Writeable {
     
     //type properties
     static let dummyFrame = CGRect(x: 0, y: 0, width: 1, height: 1)
@@ -20,33 +20,39 @@ class Writeable: UIView {
     let title: String
     var segments: [UIBezierPath]
     
-    
-    
-    // initializers
-    init (title: String, segments: [UIBezierPath], frame: CGRect) {
-        print(frame)
-        self.title = title
-        self.segments = segments
-        super.init(frame: frame)
-    }
-    
     init (title: String, segments: [UIBezierPath]) {
         self.title = title
         self.segments = segments
-        super.init(frame: Writeable.dummyFrame)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    override func draw(_ rect : CGRect) {
-        self.backgroundColor = UIColor.clear
-        //calculate points
-        
+    func setPath(withView view: CGRect) {
+        if title == "A" {
+            let point1 = CGPoint(x: view.size.width/8, y: view.size.height-5)
+            let point3 = CGPoint(x: view.size.width/2, y: 5)
+            let point5 = CGPoint(x: view.size.width - (view.size.width/8), y: view.size.height-5)
+            let point2 = Writeable.midPoint(point1: point1, point2: point3, percentBetween: 0.6)
+            let point4 = Writeable.midPoint(point1: point3, point2: point5, percentBetween: 0.4)
+
+
+            let path1 = UIBezierPath()
+            path1.move(to: point1)
+            path1.addLine(to: point3)
+            
+            let path2 = UIBezierPath()
+            path2.move(to: point3)
+            path2.addLine(to: point5)
+            
+            let path3 = UIBezierPath()
+            path3.move(to: point2)
+            path3.addLine(to: point4)
+            
+            segments = [path1, path2, path3]
+
+        }
     }
-    
-    
     
     
     
