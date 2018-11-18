@@ -59,7 +59,7 @@ class ChalkboardModel {
             Writeable(title: "8", segments: []),
             Writeable(title: "9", segments: [])
         ]
-        selectedSet = "letters"
+        selectedSet = "numbers"
     }
     
     // computed properties
@@ -74,6 +74,7 @@ class ChalkboardModel {
     
     func getRandInt (to: Int) -> Int {
         // return random Int between 0 and Int (exclusive)
+        return 0
     }
     
     func getRandomWriteable () -> Writeable {

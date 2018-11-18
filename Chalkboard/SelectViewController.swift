@@ -8,9 +8,14 @@
 
 import UIKit
 
-class SelectViewController: UIViewController, UICollectionViewDataSource {
+class Cell: UICollectionViewCell {
+    @IBOutlet weak var cellLabel: UILabel!
+}
+
+class SelectViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -22,9 +27,10 @@ class SelectViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = 
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+        cell.cellLabel.text = ChalkboardModel.shared.getWriteableAt(index: indexPath.item).title
+        return cell
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

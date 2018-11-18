@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
-class Writeable: UICollectionViewCell {
+class Writeable {
     
     // nested structure
+    
+    @IBOutlet weak var textLabel: UILabel!
     
     // stored properties
     let title: String
@@ -22,9 +24,4 @@ class Writeable: UICollectionViewCell {
         self.title = title
         self.segments = segments
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
