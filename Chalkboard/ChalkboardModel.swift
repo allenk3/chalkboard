@@ -14,12 +14,13 @@ class ChalkboardModel {
     static let shared = ChalkboardModel()
     
     // stored properties
-    var writeables: [String: [Writeable]] = [:]
-    var selectedSet: String
+    var writeables: [[Writeable]] = [[]]
+    var selectedSet: Int
+    var selectedShape: Int?
     
     // initializers
     init () {
-        writeables["letters"] = [
+        writeables[0] = [
             Writeable(title: "A", segments: []),
             Writeable(title: "B", segments: []),
             Writeable(title: "C", segments: []),
@@ -47,7 +48,7 @@ class ChalkboardModel {
             Writeable(title: "Y", segments: []),
             Writeable(title: "Z", segments: [])
         ]
-        writeables["numbers"] = [
+        writeables.append([
             Writeable(title: "0", segments: []),
             Writeable(title: "1", segments: []),
             Writeable(title: "2", segments: []),
@@ -58,27 +59,75 @@ class ChalkboardModel {
             Writeable(title: "7", segments: []),
             Writeable(title: "8", segments: []),
             Writeable(title: "9", segments: [])
-        ]
-        selectedSet = "numbers"
+        ])
+        selectedSet = 0
+        selectedShape = nil
     }
     
     // computed properties
     var writeableCount: Int {
-        return writeables[selectedSet]!.count
+        return writeables[selectedSet].count
     }
     
     // methods
+    func getSelectedShape () -> Writeable {
+        if let selectedShape = selectedShape {
+            return writeables[selectedSet][selectedShape]
+        }
+        selectRandom()
+        return writeables[selectedSet][selectedShape!]
+    }
+    
     func getWriteableAt (index: Int) -> Writeable {
-        return writeables[selectedSet]![index]
+        return writeables[selectedSet][index]
     }
     
-    func getRandInt (to: Int) -> Int {
+    func randFromZero (to number: Int) -> Int {
         // return random Int between 0 and Int (exclusive)
-        return 0
+        return Int(arc4random_uniform(UInt32(number)))
     }
     
-    func getRandomWriteable () -> Writeable {
-        return writeables[selectedSet]![getRandInt (to: writeableCount)]
+    func setSelectedSet (to ndx: Int) {
+        selectedSet = ndx
+        selectedShape = nil
     }
     
+    func setSelectedShape (to ndx: Int) {
+        selectedShape = ndx
+    }
+    
+    func selectPrevious () {
+        if var selectedShape = selectedShape {
+            if selectedShape == 0 {
+                selectedShape = writeableCount
+            }
+            selectedShape -= 1
+            self.selectedShape = selectedShape
+        } else {
+            selectedShape = 0
+        }
+    }
+    
+    func selectNext () {
+        if var selectedShape = selectedShape {
+            selectedShape += 1
+            self.selectedShape = selectedShape % writeableCount
+        } else {
+            selectedShape = 0
+        }
+    }
+    
+    func selectRandom () {
+        selectedShape = randFromZero(to: writeableCount)
+    }
+    
+    func selectRandomLetter () {
+        setSelectedSet(to: 0)
+        selectRandom()
+    }
+    
+    func selectRandomNumber () {
+        setSelectedSet(to: 1)
+        selectRandom()
+    }
 }
