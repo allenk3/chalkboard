@@ -61,6 +61,7 @@ class SelectViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         segmentControlOutlet.selectedSegmentIndex = ChalkboardModel.shared.selectedSet
+        updateView()
     }
     
     
