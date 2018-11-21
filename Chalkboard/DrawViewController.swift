@@ -11,9 +11,6 @@ import UIKit
 class DrawViewController: UIViewController {
     
     
-    
-    @IBOutlet weak var activeShapeLabel: UILabel!
-    
     // functions
     @IBAction func prevButtonAction(_ sender: Any) {
         ChalkboardModel.shared.selectPrevious()
@@ -35,7 +32,7 @@ class DrawViewController: UIViewController {
     
     func updateView () {
         let activeShape = ChalkboardModel.shared.getSelectedShape()
-        activeShapeLabel.text = activeShape.title
+        
         // activeShape.useFrame(UIView)
         // render shape on screen
         
