@@ -16,42 +16,31 @@ class DrawSubViewController: UIViewController {
     var touchPoint:CGPoint!
     var startingPoint:CGPoint!
     
-    override func viewDidLayoutSubviews() {
-        self.view.clipsToBounds = true
-        self.view.isMultipleTouchEnabled = false
-        lineColor = UIColor.black
-        lineWidth = 10
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.backgroundColor = Config.drawScreenBackgroundColor
+        super.viewWillAppear(animated)
     }
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        startingPoint = touch?.location(in: self.view)
-    }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        touchPoint = touch?.location(in: self.view)
-        
-        path = UIBezierPath()
-        path.move(to: startingPoint)
-        path.addLine(to: touchPoint)
-        startingPoint = touchPoint
-        
-        drawShapeLayer()
-    }
     
-    func drawShapeLayer() {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = lineColor.cgColor
-        shapeLayer.lineWidth = lineWidth
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        self.view.layer.addSublayer(shapeLayer)
-        self.view.setNeedsDisplay()
-    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 
+    
+    
+    
+    
+    // Sets up view based on the current state of the model
+    
+    
     /*
     // MARK: - Navigation
 
