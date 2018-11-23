@@ -12,7 +12,9 @@ class DrawViewController: UIViewController {
     
     var activeShape : Writeable?
     var completedSegments : [Segment] = []
-    
+    var activeSegment : Segment?
+    var activeLineIndex : Int?
+    var recentPoint : CGPoint?
     
     // User path drawing
     
@@ -68,41 +70,52 @@ class DrawViewController: UIViewController {
     
     
     /************** TOUCHES ****************/
-    /*
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        startingPoint = touch?.location(in: self.view)
+        let touchPoint = touches.first?.location(in: drawView)
+        recentPoint = touchPoint
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        touchPoint = touch?.location(in: self.view)
+        let touchPoint = touches.first?.location(in: drawView)
+        recentPoint = touchPoint
+        if let segment = activeSegment, let index = activeLineIndex, let recentPoint = recentPoint {
+            print(Segment.distanceTo(line: segment.lines[index], from: recentPoint))
+            
+        }
+        print(recentPoint ?? "")
         
-        path = UIBezierPath()
-        path.move(to: startingPoint)
-        path.addLine(to: touchPoint)
-        startingPoint = touchPoint
         
-        drawShapeLayer()
     }
- */
+ 
 
 
 
 
 
     /****************** Support methods ********************/
+    // Sets up the user's drawn letters
+    func updateShape(point : CGPoint) {
+        
+    }
+    
     
     // Sets up the initial view based on the state of the model
     func setupView() {
         
+        // Background
         self.view.backgroundColor = Config.drawScreenBackgroundColor
         drawView.backgroundColor = Config.drawScreenBackgroundColor
+        // Set active shape
         activeShape = ChalkboardModel.shared.getSelectedShape()
         
         
         //Draw shape
         if let activeShape = activeShape {
+            // Set active segments
+            activeSegment = activeShape.getSegment(at: 0)
+            activeLineIndex = 0
             // Draw chalkboard guide lines
             let chalkboardLines = CAShapeLayer()
             chalkboardLines.lineWidth = Config.lineWidth
@@ -121,7 +134,7 @@ class DrawViewController: UIViewController {
             
             let dashedLine = UIBezierPath()
             dashedLine.move(to: CGPoint(x: 10, y: drawView.frame.height/2 + 20))
-            dashedLine.addLine(to: CGPoint(x: drawView.frame.width, y: drawView.frame.height/2 + 20))
+            dashedLine.addLine(to: CGPoint(x: drawView.frame.width, y: drawView.frame.height/2 + 20   ))
             
             let bottomLInePath = UIBezierPath()
             bottomLInePath.move(to: CGPoint(x: 0, y: drawView.frame.height - 10))

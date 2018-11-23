@@ -13,7 +13,7 @@ class Segment : CustomStringConvertible {
     
     
     var lines : [Line] = []
-    //complete line for 
+    //complete line for segment
     var completeLine : UIBezierPath
 
     
@@ -110,6 +110,14 @@ class Segment : CustomStringConvertible {
         
         //return new point
         return CGPoint(x: (arcCenter.x + x), y: (arcCenter.y + y))
+    }
+
+    
+    // Equation taken from wikipedia
+    static func distanceTo(line: Line, from point: CGPoint) -> Double{
+        let numerator = abs((line.end.y - line.start.y)*point.x - (line.end.x-line.start.x)*point.y + line.end.x*line.start.y - line.end.y*line.start.x)
+        let denominator = sqrt(pow((line.end.y-line.start.y), 2) + pow((line.end.x-line.start.x), 2))
+        return Double(numerator/denominator)
     }
     
     

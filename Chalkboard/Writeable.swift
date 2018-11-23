@@ -49,6 +49,13 @@ class Writeable {
         return segments
     }
     
+    func getSegment(at index: Int) -> Segment? {
+        if segments.count > index {
+            return segments[index]
+        }
+        return nil
+        
+    }
     
     
     /******** HELPER FUNCTIONS *********/
