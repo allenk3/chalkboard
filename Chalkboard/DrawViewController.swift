@@ -13,7 +13,7 @@ class DrawViewController: UIViewController {
     var activeShape : Writeable?
     var completedSegments : [Segment] = []
     var activeSegment : Segment?
-    var activeLineIndex : Int?
+    var activeLineIndex : Int = 0
     var recentPoint : CGPoint?
     
     // User path drawing
@@ -80,12 +80,9 @@ class DrawViewController: UIViewController {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchPoint = touches.first?.location(in: drawView)
         recentPoint = touchPoint
-        if let segment = activeSegment, let index = activeLineIndex, let recentPoint = recentPoint {
-            print(Segment.distanceTo(line: segment.lines[index], from: recentPoint))
-            
-        }
-        print(recentPoint ?? "")
-        
+        let index = activeSegment?.getClosestIndexWith(activeIndex: activeLineIndex, point: recentPoint ?? CGPoint(x:0,y:0))
+        print(index ?? "index nil")
+        print(activeSegment?.lines[0].distanceTo(point: recentPoint ?? CGPoint(x:0,y:0)))
         
     }
  
@@ -113,6 +110,7 @@ class DrawViewController: UIViewController {
         
         //Draw shape
         if let activeShape = activeShape {
+            print("Shape Initialized")
             // Set active segments
             activeSegment = activeShape.getSegment(at: 0)
             activeLineIndex = 0
@@ -165,8 +163,6 @@ class DrawViewController: UIViewController {
             }
         } else {
             //if shape is not set, set randomly
-            ChalkboardModel.shared.selectRandom()
-            setupView()
         }
     }
     

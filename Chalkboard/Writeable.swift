@@ -41,7 +41,7 @@ class Writeable {
             segments.append(Segment(point2, point4))
             
         default:
-            print("Error")
+            print("Error in shape")
         }
     }
     

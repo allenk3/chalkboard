@@ -22,6 +22,9 @@ class Config {
     static var userLineColor : UIColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     
     
+    // User limitation configuration
+    static var distanceLimit : Double = 15.0
+    
     // Math config
     static var toDegrees = 57.2958
     static var toRadians = 0.0698132

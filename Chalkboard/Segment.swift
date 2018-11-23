@@ -113,11 +113,81 @@ class Segment : CustomStringConvertible {
     }
 
     
-    // Equation taken from wikipedia
-    static func distanceTo(line: Line, from point: CGPoint) -> Double{
-        let numerator = abs((line.end.y - line.start.y)*point.x - (line.end.x-line.start.x)*point.y + line.end.x*line.start.y - line.end.y*line.start.x)
-        let denominator = sqrt(pow((line.end.y-line.start.y), 2) + pow((line.end.x-line.start.x), 2))
-        return Double(numerator/denominator)
+    func getClosestIndexWith(activeIndex index : Int, point : CGPoint) -> Int? {
+        // Placeholder variables
+        // Keep track of final index used to see if it is the final line
+        var finalIndex : Int = index
+        // Index will be used to walk up and down the lines nearest to the current line
+        var nextIndex = index + 1
+        // The closest known line
+        var closestLine = lines[index]
+        // The line that will be compared to
+        var nextLine = lines[nextIndex]
+        // distances to the closest end points
+        var currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
+        var nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+        
+        // First compare with subsequent lines afte current index
+        while  currentDistance > nextDistance {
+            // Set closest line to next line
+            closestLine = nextLine
+            // set the final index
+            finalIndex = nextIndex
+            // Increment index
+            nextIndex += 1
+            // Set next line
+            // If it is the last line, return -1 to indicate that the segment is complete
+            if lines.count <= nextIndex {
+                return -1
+            }
+            nextLine = lines[nextIndex]
+            // Get next distances
+            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
+            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+            
+        }
+        
+        // Reset nextIndex, but in the downward direction
+        nextIndex = index - 1
+        if nextIndex < 0 {
+            nextIndex = 0
+        }
+        // Set next line to the next index
+        nextLine = lines[nextIndex]
+        nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+        // Loop to check the downward direction
+        while currentDistance > nextDistance {
+            // Set closest line to next line
+            closestLine = nextLine
+            // Set the final index
+            finalIndex = nextIndex
+            // Increment index
+            nextIndex -= 1
+            // Set next line
+            // If it is the the first line, just keep set at 0
+            if lines.count <= 0 {
+                nextIndex = 0
+            }
+            nextLine = lines[nextIndex]
+            // Get next indexes
+            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
+            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+            
+        }
+        
+        // Check to see if nearest distance is within limit
+        // nil indicates reset the shape with currently completed segments drawn
+        if closestLine.distanceTo(point: point) > Config.distanceLimit {
+            return nil
+        }
+        
+        // Check if it is the last line in the segment
+        // -1 represents that the segment is complete. Should have returned in loop in this case, but just in case
+        if finalIndex == (lines.count-1) {
+            return -1
+        }
+        
+        return finalIndex
     }
     
     
