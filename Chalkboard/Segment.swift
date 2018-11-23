@@ -112,8 +112,12 @@ class Segment : CustomStringConvertible {
         return CGPoint(x: (arcCenter.x + x), y: (arcCenter.y + y))
     }
 
-    
-    func getClosestIndexWith(activeIndex index : Int, point : CGPoint) -> Int? {
+    // Get the closest line index and percent of line completed
+    // Returns (lineIndex, percentComplete)
+    // lineIndex == nil if further away from line then configuration
+    // lineIndex == -1 if last line index
+    // percentComplete == nil if further away from line than configuration
+    func getClosestIndexWith(activeIndex index : Int, point : CGPoint) -> (Int?, Double?) {
         // Placeholder variables
         // Keep track of final index used to see if it is the final line
         var finalIndex : Int = index
@@ -123,9 +127,11 @@ class Segment : CustomStringConvertible {
         var closestLine = lines[index]
         // The line that will be compared to
         var nextLine = lines[nextIndex]
-        // distances to the closest end points
+        // Distances to the closest end points
         var currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
         var nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+        // percent complte
+        var percentComplete : Double? = nil
         
         // First compare with subsequent lines afte current index
         while  currentDistance > nextDistance {
@@ -138,7 +144,9 @@ class Segment : CustomStringConvertible {
             // Set next line
             // If it is the last line, return -1 to indicate that the segment is complete
             if lines.count <= nextIndex {
-                return -1
+                // Calculate percentComplete
+                percentComplete = closestLine.percentCompleteWith(point: point)
+                return (-1, percentComplete)
             }
             nextLine = lines[nextIndex]
             // Get next distances
@@ -178,16 +186,17 @@ class Segment : CustomStringConvertible {
         // Check to see if nearest distance is within limit
         // nil indicates reset the shape with currently completed segments drawn
         if closestLine.distanceTo(point: point) > Config.distanceLimit {
-            return nil
+            return (nil, nil)
         }
         
         // Check if it is the last line in the segment
         // -1 represents that the segment is complete. Should have returned in loop in this case, but just in case
         if finalIndex == (lines.count-1) {
-            return -1
+            percentComplete = closestLine.percentCompleteWith(point: point)
+            return (-1, percentComplete)
         }
-        
-        return finalIndex
+        percentComplete = closestLine.percentCompleteWith(point: point)
+        return (finalIndex, percentComplete)
     }
     
     

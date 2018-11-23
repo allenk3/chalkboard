@@ -81,7 +81,8 @@ class DrawViewController: UIViewController {
         let touchPoint = touches.first?.location(in: drawView)
         recentPoint = touchPoint
         let index = activeSegment?.getClosestIndexWith(activeIndex: activeLineIndex, point: recentPoint ?? CGPoint(x:0,y:0))
-        print(index ?? "index nil")
+        print(index?.0 ?? "index nil")
+        print(index?.1 ?? "percent nil")
         print(activeSegment?.lines[0].distanceTo(point: recentPoint ?? CGPoint(x:0,y:0)))
         
     }
