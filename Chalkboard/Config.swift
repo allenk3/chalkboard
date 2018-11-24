@@ -25,7 +25,7 @@ class Config {
     // User limitation configuration
     static var distanceLimit : Double = 15.0
     static var startRadiusLimit : Double = 15.0
-    static var requiredPercentageToComplete : Double = 90.0
+    static var requiredPercentageToComplete : Double = 0.90
     static var startLineIndex : Int = 0
     static var startSegmentIndex : Int = 0
     

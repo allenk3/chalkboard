@@ -127,8 +127,11 @@ class Segment : CustomStringConvertible {
         var finalIndex : Int = index
         // Index will be used to walk up and down the lines nearest to the current line
         var nextIndex = index + 1
+        // Reset next index based on position in array
+        nextIndex = nextIndex >= lines.count ? lines.count-1 : nextIndex
         // The closest known line
-        var closestLine = lines[index]
+        // If index == -1, then its the last line
+        var closestLine = lines[index == -1 ? lines.count-1 : index]
         // The line that will be compared to
         var nextLine = lines[nextIndex]
         // Each distance will be a totalling of the distance from the given point to the start added to the distance from the given point to the end point.

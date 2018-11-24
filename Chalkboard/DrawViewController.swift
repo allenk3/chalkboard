@@ -96,6 +96,7 @@ class DrawViewController: UIViewController {
             let nextIndex = activeSegment?.getClosestIndexWith(activeIndex: activeLineIndex, point: recentPoint)
             // Check to see if index is nil, meaning that the drag was outside of line
             if let nextIndex = nextIndex {
+                print(nextIndex)
                 // Check if nextIndex is final line and if the percentage is greater than limit
                 if nextIndex.0 == -1 && nextIndex.1! > Config.requiredPercentageToComplete {
                     // Add segment to complted segments
@@ -111,6 +112,8 @@ class DrawViewController: UIViewController {
                         // Return
                         return
                     }
+                    // Set activeSegment to next segment
+                    activeSegment = activeShape?.getSegment(at: completedSegments.count)
                     // If the shape is not complete, redraw based on newly completed segemnt
                     setupView()
                     return
