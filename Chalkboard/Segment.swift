@@ -59,6 +59,10 @@ class Segment : CustomStringConvertible {
         return lines
     }
     
+    func getNumLines() -> Int {
+        return lines.count
+    }
+    
     func getCompleteLine() -> UIBezierPath {
         return completeLine
     }
@@ -127,9 +131,9 @@ class Segment : CustomStringConvertible {
         var closestLine = lines[index]
         // The line that will be compared to
         var nextLine = lines[nextIndex]
-        // Distances to the closest end points
-        var currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
-        var nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+        // Each distance will be a totalling of the distance from the given point to the start added to the distance from the given point to the end point.
+        var currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point) + Line.distanceBetween(point1: closestLine.start, point2: point)
+        var nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point) + Line.distanceBetween(point1: nextLine.start, point2: point)
         // percent complte
         var percentComplete : Double? = nil
         
@@ -150,8 +154,8 @@ class Segment : CustomStringConvertible {
             }
             nextLine = lines[nextIndex]
             // Get next distances
-            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
-            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point) + Line.distanceBetween(point1: closestLine.start, point2: point)
+            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point) + Line.distanceBetween(point1: nextLine.start, point2: point)
             
         }
         
@@ -162,7 +166,7 @@ class Segment : CustomStringConvertible {
         }
         // Set next line to the next index
         nextLine = lines[nextIndex]
-        nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+        nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point) + Line.distanceBetween(point1: nextLine.start, point2: point)
         // Loop to check the downward direction
         while currentDistance > nextDistance {
             // Set closest line to next line
@@ -178,8 +182,8 @@ class Segment : CustomStringConvertible {
             }
             nextLine = lines[nextIndex]
             // Get next indexes
-            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point)
-            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point)
+            currentDistance = Line.distanceBetween(point1: closestLine.end, point2: point) + Line.distanceBetween(point1: closestLine.start, point2: point)
+            nextDistance = Line.distanceBetween(point1: nextLine.end, point2: point) + Line.distanceBetween(point1: nextLine.start, point2: point)
             
         }
         
@@ -197,6 +201,16 @@ class Segment : CustomStringConvertible {
         }
         percentComplete = closestLine.percentCompleteWith(point: point)
         return (finalIndex, percentComplete)
+    }
+    
+    // Function to get the starting point of the Line segment
+    func getStartingPoint() -> CGPoint {
+        return lines[0].start
+    }
+    
+    // Function to get the ending point of the Line segment
+    func getEndingPoint() -> CGPoint {
+        return lines[lines.count-1].end
     }
     
     

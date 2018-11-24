@@ -57,6 +57,10 @@ class Writeable {
         
     }
     
+    func getNumSegments() -> Int {
+        return segments.count
+    }
+    
     
     /******** HELPER FUNCTIONS *********/
 }

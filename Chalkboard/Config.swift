@@ -24,6 +24,10 @@ class Config {
     
     // User limitation configuration
     static var distanceLimit : Double = 15.0
+    static var startRadiusLimit : Double = 15.0
+    static var requiredPercentageToComplete : Double = 90.0
+    static var startLineIndex : Int = 0
+    static var startSegmentIndex : Int = 0
     
     // Math config
     static var toDegrees = 57.2958

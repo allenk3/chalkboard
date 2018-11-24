@@ -23,6 +23,18 @@ struct Line : CustomStringConvertible{
     
     // Equation taken from wikipedia
     func distanceTo(point: CGPoint) -> Double{
+        // Check for horizontal line
+        if start.y == end.y {
+            // Calculate and return distance
+            return Double(abs(point.y-start.y))
+        }
+        
+        // Check for vertical line
+        if start.x == end.x {
+            return Double(abs(point.x-start.x))
+        }
+        
+        
         let numerator = abs((self.end.y - self.start.y)*point.x - (self.end.x-self.start.x)*point.y + self.end.x*self.start.y - self.end.y*self.start.x)
         let denominator = sqrt(pow((self.end.y-self.start.y), 2) + pow((self.end.x-self.start.x), 2))
         return Double(numerator/denominator)
@@ -57,9 +69,13 @@ struct Line : CustomStringConvertible{
     }
     
     func percentCompleteWith(point: CGPoint) -> Double {
+        // Get the point on the line nearest to the given point
         let nearestPointOnLine = self.getClosestPoint(from: point)
+        // Get the length to that nearest point from the start point
         let lengthToNearestPointOnLine = Line.distanceBetween(point1: self.start, point2: nearestPointOnLine)
+        // Get the total length of the line
         let totalLengthOfLine = Line.distanceBetween(point1: self.start, point2: self.end)
+        // Calculate the percentage of the line completed
         let percentComplete = lengthToNearestPointOnLine/totalLengthOfLine
         return percentComplete
     }
