@@ -180,7 +180,7 @@ class Segment : CustomStringConvertible {
             nextIndex -= 1
             // Set next line
             // If it is the the first line, just keep set at 0
-            if lines.count <= 0 {
+            if nextIndex <= 0 {
                 nextIndex = 0
             }
             nextLine = lines[nextIndex]

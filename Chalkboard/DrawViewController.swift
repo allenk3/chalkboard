@@ -76,11 +76,15 @@ class DrawViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchPoint = touches.first?.location(in: drawView)
         let recentPoint = touchPoint
+        // Set active segment
         // Check if point is within config radius of start point
-        if let activeSegment = activeSegment, let recentPoint = recentPoint {
-            if Line.distanceBetween(point1: activeSegment.getStartingPoint(), point2: recentPoint) < Config.startRadiusLimit {
+        if (recentPoint != nil) && !shapeComplete {
+            activeSegment = activeShape?.getSegment(at: completedSegments.count)
+            if Line.distanceBetween(point1: activeSegment!.getStartingPoint(), point2: recentPoint!) < Config.startRadiusLimit {
                 // Set the active index to the start index
                 activeLineIndex = Config.startLineIndex
+            }else {
+                activeSegment = nil
             }
         }
     }
@@ -95,16 +99,17 @@ class DrawViewController: UIViewController {
             // Will return (index, percentComplete)
             let nextIndex = activeSegment?.getClosestIndexWith(activeIndex: activeLineIndex, point: recentPoint)
             // Check to see if index is nil, meaning that the drag was outside of line
-            if let nextIndex = nextIndex {
+            if nextIndex != nil && nextIndex!.0 != nil && nextIndex!.1 != nil {
                 print(nextIndex)
                 // Check if nextIndex is final line and if the percentage is greater than limit
-                if nextIndex.0 == -1 && nextIndex.1! > Config.requiredPercentageToComplete {
+                if nextIndex!.0 == -1 && nextIndex!.1! > Config.requiredPercentageToComplete {
                     // Add segment to complted segments
                     completedSegments.append(activeSegment!)
                     // Check to see if shape is completed
                     if completedSegments.count == activeShape?.getNumSegments() {
                         // Set boolean to true
                         shapeComplete = true
+                        Config.userLineColor = UIColor.red
                         // Set index and segment to nil to indicate completion
                         self.activeLineIndex = nil
                         activeSegment = nil
@@ -119,16 +124,21 @@ class DrawViewController: UIViewController {
                     return
                 }
                 // If the index is not nil, set activeLine index
-                self.activeLineIndex = nextIndex.0
+                self.activeLineIndex = nextIndex!.0
                 // set percentComplete
-                percentComplete = nextIndex.1
+                percentComplete = nextIndex!.1
                 // Redraw users progress
                 updateInputSegment()
             }else {
+                print("hi")
                 // If users drag is outside limit
                 // set index to nil
                 self.activeLineIndex = nil
+                self.activeSegment = nil
                 // Draw background with completed segments only
+                drawView.layer.sublayers = nil
+                drawView.layer.setNeedsDisplay()
+                drawView.layer.displayIfNeeded()
                 setupView()
             }
             
