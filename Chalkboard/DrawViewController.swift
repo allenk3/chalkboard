@@ -19,6 +19,7 @@ class DrawViewController: UIViewController {
     
     // Shapes needed for removal later
     var userInputShape : CAShapeLayer?
+    var completeSegmentsShape : CAShapeLayer?
     var backgroundShape : CAShapeLayer?
     
     
@@ -35,21 +36,70 @@ class DrawViewController: UIViewController {
     
     // functions
     @IBAction func prevButtonAction(_ sender: Any) {
+        // Select shape in model
         ChalkboardModel.shared.selectPrevious()
-        setupView()
+        // Set activeShape to model selectedShape
+        activeShape = ChalkboardModel.shared.getSelectedShape()
+        // Clear completedSegments
+        completedSegments = []
+        // Clear user input layer
+        completeSegmentsShape?.removeFromSuperlayer()
+        // Clear background shape layer
+        backgroundShape?.removeFromSuperlayer()
+        // Set finished to false
+        shapeComplete = false
+        // Set layer need to appear
+        drawView.layer.setNeedsDisplay()
+        // Draw new background shape
+        drawSelectedShapeOutline()
     }
     
     @IBAction func nextButtonAction(_ sender: Any) {
         ChalkboardModel.shared.selectNext()
-        setupView()
+        // Set activeShape to model selectedShape
+        activeShape = ChalkboardModel.shared.getSelectedShape()
+        // Clear completedSegments
+        completedSegments = []
+        // Clear user input layer
+        completeSegmentsShape?.removeFromSuperlayer()
+        // Clear background shape layer
+        backgroundShape?.removeFromSuperlayer()
+        // Set finished to false
+        shapeComplete = false
+        // Set layer need to appear
+        drawView.layer.setNeedsDisplay()
+        // Draw new background shape
+        drawSelectedShapeOutline()
     }
     
     @IBAction func repeatButtonAction(_ sender: Any) {
+        // Clear completedSegments
+        completedSegments = []
+        // Clear drawn layer
+        completeSegmentsShape?.removeFromSuperlayer()
+        // set active segment
+        activeSegment = activeShape?.getSegment(at: completedSegments.count)
+        drawView.layer.setNeedsDisplay()
+        // Set finished to false
+        shapeComplete = false
     }
     
     @IBAction func randomButtonAction(_ sender: Any) {
         ChalkboardModel.shared.selectRandom()
-        setupView()
+        // Set activeShape to model selectedShape
+        activeShape = ChalkboardModel.shared.getSelectedShape()
+        // Clear completedSegments
+        completedSegments = []
+        // Clear user input layer
+        completeSegmentsShape?.removeFromSuperlayer()
+        // Clear background shape layer
+        backgroundShape?.removeFromSuperlayer()
+        // Set layer need to appear
+        drawView.layer.setNeedsDisplay()
+        // Set finished to false
+        shapeComplete = false
+        // Draw new background shape
+        drawSelectedShapeOutline()
     }
 
     
@@ -136,10 +186,8 @@ class DrawViewController: UIViewController {
                 if nextIndex!.0 == -1 && nextIndex!.1! > Config.requiredPercentageToComplete {
                     // Add segment to complted segments
                     completedSegments.append(activeSegment!)
+                    
                     // Check to see if shape is completed
-                    print(completedSegments.count)
-                    print("active Shape number segments")
-                    print(activeShape?.getNumSegments())
                     if completedSegments.count == activeShape?.getNumSegments() {
                         // Set boolean to true
                         shapeComplete = true
@@ -148,13 +196,15 @@ class DrawViewController: UIViewController {
                         self.activeLineIndex = nil
                         activeSegment = nil
                         drawCompletedSegments()
+                        Config.userLineColor = UIColor.white
                         // Return
                         return
                     }
+                    
                     // Set activeSegment to next segment
                     activeSegment = activeShape?.getSegment(at: completedSegments.count)
                     // If the shape is not complete, redraw based on newly completed segemnt
-                    setupView()
+                    drawCompletedSegments()
                     return
                 }
                 // If the index is not nil, set activeLine index
@@ -164,7 +214,6 @@ class DrawViewController: UIViewController {
                 // Redraw users progress
                 updateInputSegment()
             }else {
-                print("hi")
                 // If users drag is outside limit
                 // set index to nil
                 self.activeLineIndex = nil
@@ -212,7 +261,6 @@ class DrawViewController: UIViewController {
             userInputShape!.lineWidth = Config.lineWidth
             userInputShape!.strokeColor = Config.userLineColor.cgColor
             userInputShape!.fillColor = UIColor.clear.cgColor
-            userInputShape!.name = "user_input"
             
             // Append all lines up to activeLineIndex to path
             let path = UIBezierPath()
@@ -306,25 +354,36 @@ class DrawViewController: UIViewController {
             // Letter shape layer
             activeShape.setShapePath(frame: drawView.frame)
             let segments = activeShape.getSegments()
+            // remove old shape if needed
+            backgroundShape?.removeFromSuperlayer()
+            // Configure new shape
+            backgroundShape = CAShapeLayer()
+            backgroundShape!.strokeColor = Config.drawScreenLineColor.cgColor
+            backgroundShape!.lineWidth = Config.lineWidth
+            backgroundShape!.lineDashPattern = Config.lineDashPattern as [NSNumber]
+            backgroundShape!.fillColor = UIColor.clear.cgColor
+            // Declare path to append to
+            let path = UIBezierPath()
+            // Iterate through segments
             for segment in segments {
-                backgroundShape = CAShapeLayer()
-                backgroundShape!.strokeColor = Config.drawScreenLineColor.cgColor
-                backgroundShape!.lineWidth = Config.lineWidth
-                backgroundShape!.lineDashPattern = Config.lineDashPattern as [NSNumber]
-                backgroundShape!.fillColor = UIColor.clear.cgColor
-                backgroundShape!.path = segment.completeLine.cgPath
-                drawView.layer.addSublayer(backgroundShape!)
+                path.append(segment.completeLine)
             }
+            // Add path to shape layer
+            backgroundShape?.path = path.cgPath
+            // Add shape layer to drawView
+            drawView.layer.addSublayer(backgroundShape!)
         }
     }
     
     func drawCompletedSegments() {
         if completedSegments.count > 0 {
+            // Remove old segment layer
+            completeSegmentsShape?.removeFromSuperlayer()
             // User completed segments config
-            let completedShape = CAShapeLayer()
-            completedShape.lineWidth = Config.lineWidth
-            completedShape.strokeColor = Config.userLineColor.cgColor
-            completedShape.fillColor = UIColor.clear.cgColor
+            completeSegmentsShape = CAShapeLayer()
+            completeSegmentsShape!.lineWidth = Config.lineWidth
+            completeSegmentsShape!.strokeColor = Config.userLineColor.cgColor
+            completeSegmentsShape!.fillColor = UIColor.clear.cgColor
             
             // Draw user lines
             let userPath = UIBezierPath()
@@ -332,9 +391,9 @@ class DrawViewController: UIViewController {
                 userPath.append(segment.getCompleteLine())
             }
             // Add path to shape layer
-            completedShape.path = userPath.cgPath
+            completeSegmentsShape!.path = userPath.cgPath
             // Add shape layer to drawView
-            drawView.layer.addSublayer(completedShape)
+            drawView.layer.addSublayer(completeSegmentsShape!)
         }
     }
     

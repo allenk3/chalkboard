@@ -31,9 +31,9 @@ class Writeable {
         case "A":
             if !pathSet {
                 // Get points
-                let point1 = CGPoint(x: frame.size.width/8, y: frame.size.height-7)
+                let point1 = CGPoint(x: frame.size.width/8, y: frame.size.height-15)
                 let point3 = CGPoint(x: frame.size.width/2, y: 10)
-                let point5 = CGPoint(x: frame.size.width - (frame.size.width/8), y: frame.size.height-7)
+                let point5 = CGPoint(x: frame.size.width - (frame.size.width/8), y: frame.size.height-15)
                 let point2 = Segment.pointBetweenLine(point1: point3, point2: point1, percentBetween: 0.45)
                 let point4 = Segment.pointBetweenLine(point1: point3, point2: point5, percentBetween: 0.45)
                 
