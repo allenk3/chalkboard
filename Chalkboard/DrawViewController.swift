@@ -17,6 +17,7 @@ class DrawViewController: UIViewController {
     var percentComplete : Double?
     var shapeComplete : Bool = false
     
+    
     // Shapes needed for removal later
     var userInputShape : CAShapeLayer?
     var completeSegmentsShape : CAShapeLayer?
