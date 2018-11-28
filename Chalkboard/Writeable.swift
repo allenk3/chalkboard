@@ -31,9 +31,9 @@ class Writeable {
         case "A":
             if !pathSet {
                 // Get points
-                let point1 = CGPoint(x: frame.size.width/8, y: frame.size.height-15)
+                let point1 = CGPoint(x: frame.size.width/8, y: frame.size.height-Config.shapeDistanceFromBottom)
                 let point3 = CGPoint(x: frame.size.width/2, y: 10)
-                let point5 = CGPoint(x: frame.size.width - (frame.size.width/8), y: frame.size.height-15)
+                let point5 = CGPoint(x: frame.size.width - (frame.size.width/8), y: frame.size.height-Config.shapeDistanceFromTop)
                 let point2 = Segment.pointBetweenLine(point1: point3, point2: point1, percentBetween: 0.45)
                 let point4 = Segment.pointBetweenLine(point1: point3, point2: point5, percentBetween: 0.45)
                 
@@ -47,8 +47,8 @@ class Writeable {
         case "B":
             if !pathSet {
                 // Get top and bottom point
-                let point1 = CGPoint(x: frame.size.width/2.5, y: frame.size.height-15)
-                let point4 = CGPoint(x: frame.size.width/2.5, y: 15)
+                let point1 = CGPoint(x: frame.size.width/2.5, y: frame.size.height-Config.shapeDistanceFromBottom)
+                let point4 = CGPoint(x: frame.size.width/2.5, y: Config.shapeDistanceFromTop)
                 // Get center point
                 let centerpoint = Segment.pointBetweenLine(point1: point1, point2: point4, percentBetween: 0.5)
                 // Get top arc center

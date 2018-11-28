@@ -260,9 +260,10 @@ class DrawViewController: UIViewController {
             }
             // Configure shape
             userInputShape = CAShapeLayer()
-            userInputShape!.lineWidth = Config.lineWidth
+            userInputShape!.lineWidth = Config.userLineWidth
             userInputShape!.strokeColor = Config.userLineColor.cgColor
             userInputShape!.fillColor = UIColor.clear.cgColor
+            userInputShape!.lineCap = Config.userLineCap
             
             // Append all lines up to activeLineIndex to path
             let path = UIBezierPath()
@@ -314,13 +315,13 @@ class DrawViewController: UIViewController {
         // Draw chalkboard guide lines
         // Total solid background lines config
         let chalkboardLines = CAShapeLayer()
-        chalkboardLines.lineWidth = Config.lineWidth
+        chalkboardLines.lineWidth = Config.chalkboardSolidlineWidth
         chalkboardLines.strokeColor = Config.drawScreenLineColor.cgColor
         chalkboardLines.fillColor = UIColor.clear.cgColor
         
         // Middle dashed background line config
         let chalkboardDashed = CAShapeLayer()
-        chalkboardDashed.lineWidth = Config.chalkboardLineWidth
+        chalkboardDashed.lineWidth = Config.chalkboardDashedLineWidth
         chalkboardDashed.strokeColor = Config.drawScreenLineColor.cgColor
         chalkboardDashed.fillColor = UIColor.clear.cgColor
         chalkboardDashed.lineDashPattern = Config.lineDashPattern as [NSNumber]
@@ -361,7 +362,7 @@ class DrawViewController: UIViewController {
             // Configure new shape
             backgroundShape = CAShapeLayer()
             backgroundShape!.strokeColor = Config.drawScreenLineColor.cgColor
-            backgroundShape!.lineWidth = Config.lineWidth
+            backgroundShape!.lineWidth = Config.userLineWidth
             backgroundShape!.lineDashPattern = Config.lineDashPattern as [NSNumber]
             backgroundShape!.fillColor = UIColor.clear.cgColor
             // Declare path to append to
@@ -383,9 +384,10 @@ class DrawViewController: UIViewController {
             completeSegmentsShape?.removeFromSuperlayer()
             // User completed segments config
             completeSegmentsShape = CAShapeLayer()
-            completeSegmentsShape!.lineWidth = Config.lineWidth
+            completeSegmentsShape!.lineWidth = Config.userLineWidth
             completeSegmentsShape!.strokeColor = Config.userLineColor.cgColor
             completeSegmentsShape!.fillColor = UIColor.clear.cgColor
+            completeSegmentsShape!.lineCap = Config.userLineCap
             
             // Draw user lines
             let userPath = UIBezierPath()
