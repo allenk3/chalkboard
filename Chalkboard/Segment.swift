@@ -182,11 +182,9 @@ class Segment : CustomStringConvertible {
             // Increment index
             nextIndex += 1
             // Set next line
-            // If it is the last line, return -1 to indicate that the segment is complete
+            // If it is the last line, cant look any higher -> break
             if lines.count <= nextIndex {
-                // Calculate percentComplete
-                percentComplete = closestLine.percentCompleteWith(point: point)
-                return (-1, percentComplete)
+                break
             }
             nextLine = lines[nextIndex]
             // Get next distances
