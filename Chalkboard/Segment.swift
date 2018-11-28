@@ -76,12 +76,10 @@ class Segment : CustomStringConvertible {
         var x : CGFloat
         var y : CGFloat
         
-        // Calculate angle from radians to degrees
-        let startAngleDegrees = startAngle * 57.2958
-        let endAngleDegrees = endAngle * 57.2958
         // Calculate angle of new point
-        let newAngle = startAngleDegrees + (endAngleDegrees - startAngleDegrees) * CGFloat(percentBetween)
-        let zone = floor(newAngle/90.0)
+        let newAngle = startAngle + (endAngle - startAngle) * CGFloat(percentBetween)
+        // Calculate zone of reference angle by dividing by 90 degrees or 1.5708 radians
+        let zone = floor(newAngle/1.5708)
         // Calculate reference angle and set booleans for negatives
         switch zone {
         case 0:
