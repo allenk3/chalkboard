@@ -13,9 +13,9 @@ class Segment : CustomStringConvertible {
     
     
     var lines : [Line] = []
-    //complete line for segment
+    // Complete line for segment
     var completeLine : UIBezierPath
-
+    
     
     // Straight line initializer
     init(_ point1: CGPoint, _ point2: CGPoint) {
@@ -25,7 +25,8 @@ class Segment : CustomStringConvertible {
         completeLine.addLine(to: point2)
         var newStart : CGPoint = point1
         var newEnd : CGPoint
-        for percent in stride(from: 0.1, through: 1.0, by: 0.1) {
+        // Populate lines based on if segment is curved or straight.
+        for percent in stride(from: 0.1, through: 1.0, by: Config.straightSegmentLinePercent) {
             //get next point and make line
             newEnd = Segment.pointBetweenLine(point1: point1, point2: point2, percentBetween: percent)
             lines.append(Line(start: newStart, end: newEnd))
@@ -36,8 +37,10 @@ class Segment : CustomStringConvertible {
     init(centerPoint: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
         completeLine = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         var startPoint : CGPoint = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: 0.0)
+        print("starting Point:")
+        print(startPoint)
         var endPoint : CGPoint
-        for percent in stride(from: 0.1, through: 0.9, by: 0.05) {
+        for percent in stride(from: Config.curvedSegmentLinePercent, through: 1.0, by: Config.curvedSegmentLinePercent) {
             //get next point and make line
             endPoint = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: percent)
             lines.append(Line(start: startPoint, end: endPoint))
@@ -54,7 +57,7 @@ class Segment : CustomStringConvertible {
     func setCompleteLine(with path: UIBezierPath) {
         completeLine = path
     }
-    
+ 
     func getLines() -> [Line] {
         return lines
     }
@@ -77,31 +80,63 @@ class Segment : CustomStringConvertible {
         var y : CGFloat
         
         // Calculate angle of new point
-        let newAngle = startAngle + (endAngle - startAngle) * CGFloat(percentBetween)
+        var newAngle : CGFloat
+        if clockwise {
+            newAngle = startAngle + abs(endAngle - startAngle) * CGFloat(percentBetween)
+        }else {
+            newAngle = startAngle - abs(endAngle - startAngle) * CGFloat(percentBetween)
+        }
+        //
+        while newAngle >= 2*CGFloat.pi {
+            newAngle = newAngle - (2*CGFloat.pi)
+        }
+        print("new Angle: ")
+        print(newAngle)
+        
         // Calculate zone of reference angle by dividing by 90 degrees or 1.5708 radians
-        let zone = floor(newAngle/1.5708)
+        let zone = floor(newAngle/(CGFloat.pi/2))
+        print("Zone: ")
+        print(zone)
         // Calculate reference angle and set booleans for negatives
         switch zone {
-        case 0:
+        case 3:
             // Calculate x
             x = radius * cos(newAngle)
+            print(radius)
+            
             // Calculate y
             y = radius * sin(newAngle)
-        case 1:
-            // Calculate x
-            x = -1 * radius * cos(newAngle)
-            // Calculate y
-            y = radius * sin(newAngle)
+            print("x")
+            print(x)
+            print("y: ")
+            print(y)
         case 2:
             // Calculate x
             x = -1 * radius * cos(newAngle)
             // Calculate y
             y = -1 * radius * sin(newAngle)
-        case 3:
+            print("x")
+            print(x)
+            print("y: ")
+            print(y)
+        case 1:
+            // Calculate x
+            x = -1 * radius * cos(newAngle)
+            // Calculate y
+            y = radius * sin(newAngle)
+            print("x")
+            print(x)
+            print("y: ")
+            print(y)
+        case 0:
             // Calculate x
             x = radius * cos(newAngle)
             // Calculate y
-            y = -1 * radius * sin(newAngle)
+            y = radius * sin(newAngle)
+            print("x")
+            print(x)
+            print("y: ")
+            print(y)
         default:
             //will never call
             // Calculate x

@@ -44,7 +44,27 @@ class Writeable {
                 // set boolean for object
                 pathSet = true
             }
-            
+        case "B":
+            if !pathSet {
+                // Get top and bottom point
+                let point1 = CGPoint(x: frame.size.width/2.5, y: frame.size.height-15)
+                let point4 = CGPoint(x: frame.size.width/2.5, y: 15)
+                // Get center point
+                let centerpoint = Segment.pointBetweenLine(point1: point1, point2: point4, percentBetween: 0.5)
+                // Get top arc center
+                let point3 = Segment.pointBetweenLine(point1: point4, point2: centerpoint, percentBetween: 0.5)
+                // Get bottom arc center
+                let point2 = Segment.pointBetweenLine(point1: point1, point2: centerpoint, percentBetween: 0.5)
+                // Get radius, which is the length between center point and either arc point
+                let radius = Line.distanceBetween(point1: point3, point2: centerpoint)
+
+                // Get Segments and add to segments
+                segments.append(Segment(point1, point4))
+                segments.append(Segment(centerPoint: point3, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true))
+                segments.append(Segment(centerPoint: point2, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true))
+                // set boolean for object
+                pathSet = true
+            }
             
         default:
             print("Error in shape")

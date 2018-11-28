@@ -17,6 +17,9 @@ class Config {
     static var lineDashPattern = [20, 8]
     static var lineWidth : CGFloat = 10
     static var chalkboardLineWidth : CGFloat = 5
+    // Percentage of curve that line will take up.
+    static var curvedSegmentLinePercent = 0.05
+    static var straightSegmentLinePercent = 0.1
     
     // User drawing configuration
     static var userLineColor : UIColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
