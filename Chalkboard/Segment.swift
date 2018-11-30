@@ -37,8 +37,6 @@ class Segment : CustomStringConvertible {
     init(centerPoint: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
         completeLine = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         var startPoint : CGPoint = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: 0.0)
-        print("starting Point:")
-        print(startPoint)
         var endPoint : CGPoint
         for percent in stride(from: Config.curvedSegmentLinePercent, through: 1.0, by: Config.curvedSegmentLinePercent) {
             //get next point and make line
@@ -46,6 +44,52 @@ class Segment : CustomStringConvertible {
             lines.append(Line(start: startPoint, end: endPoint))
             startPoint = endPoint
         }
+    }
+    
+    // Initializer for segment with 1 straight Line, curve, another straight line
+    init(startLineStart: CGPoint, startLineEnd: CGPoint, centerPoint: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool, endLineStart: CGPoint, endLineEnd: CGPoint) {
+        // Add the complete line in order
+        completeLine = UIBezierPath()
+        let firstLine = UIBezierPath()
+        let lastLine = UIBezierPath()
+        
+        firstLine.move(to: startLineStart)
+        firstLine.addLine(to: startLineEnd)
+        lastLine.move(to: endLineStart)
+        lastLine.addLine(to: endLineEnd)
+        completeLine.append(firstLine)
+        completeLine.append(UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise))
+        completeLine.append(lastLine)
+        
+        // Iterate through start line
+        var newStart : CGPoint = startLineStart
+        var newEnd : CGPoint
+        // Populate lines
+        for percent in stride(from: 0.1, through: 1.0, by: Config.straightSegmentLinePercent) {
+            //get next point and make line
+            newEnd = Segment.pointBetweenLine(point1: startLineStart, point2: startLineEnd, percentBetween: percent)
+            lines.append(Line(start: newStart, end: newEnd))
+            newStart = newEnd
+        }
+        
+        // Iterate through curve
+        newStart = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: 0.0)
+        for percent in stride(from: Config.curvedSegmentLinePercent, through: 1.0, by: Config.curvedSegmentLinePercent) {
+            //get next point and make line
+            newEnd = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: percent)
+            lines.append(Line(start: newStart, end: newEnd))
+            newStart = newEnd
+        }
+        
+        newStart = endLineStart
+        // Iterate through end line
+        for percent in stride(from: 0.1, through: 1.0, by: Config.straightSegmentLinePercent) {
+            //get next point and make line
+            newEnd = Segment.pointBetweenLine(point1: endLineStart, point2: endLineEnd, percentBetween: percent)
+            lines.append(Line(start: newStart, end: newEnd))
+            newStart = newEnd
+        }
+        
     }
     
     

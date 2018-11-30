@@ -48,4 +48,10 @@ class Config {
     static var startLineIndex : Int = 0
     static var startSegmentIndex : Int = 0
     
+    
+    
+    // Letter specific config
+    // B
+    static var bExtention : CGFloat = 50
+    
 }

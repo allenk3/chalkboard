@@ -47,21 +47,38 @@ class Writeable {
         case "B":
             if !pathSet {
                 // Get top and bottom point
-                let point1 = CGPoint(x: frame.size.width/2.5, y: frame.size.height-Config.shapeDistanceFromBottom)
-                let point4 = CGPoint(x: frame.size.width/2.5, y: Config.shapeDistanceFromTop)
+                let point1 = CGPoint(x: frame.size.width/3, y: frame.size.height-Config.shapeDistanceFromBottom)
+                let point4 = CGPoint(x: frame.size.width/3, y: Config.shapeDistanceFromTop)
                 // Get center point
                 let centerpoint = Segment.pointBetweenLine(point1: point1, point2: point4, percentBetween: 0.5)
                 // Get top arc center
-                let point3 = Segment.pointBetweenLine(point1: point4, point2: centerpoint, percentBetween: 0.5)
+                var point3 = Segment.pointBetweenLine(point1: point4, point2: centerpoint, percentBetween: 0.5)
                 // Get bottom arc center
-                let point2 = Segment.pointBetweenLine(point1: point1, point2: centerpoint, percentBetween: 0.5)
+                var point2 = Segment.pointBetweenLine(point1: point1, point2: centerpoint, percentBetween: 0.5)
                 // Get radius, which is the length between center point and either arc point
                 let radius = Line.distanceBetween(point1: point3, point2: centerpoint)
-
+                
+                // Extend curves to the right 10-15 starting on bottom left
+                // Bottom line
+                let ext_10 = point1
+                let ext_11 = CGPoint(x: ext_10.x+Config.bExtention, y: ext_10.y)
+                // Middle line
+                let ext_12 = centerpoint
+                let ext_13 = CGPoint(x: ext_12.x+Config.bExtention, y: ext_12.y)
+                // Top line
+                let ext_14 = point4
+                let ext_15 = CGPoint(x: ext_14.x+Config.bExtention, y: ext_14.y)
+                
+                // Adjust centerpoints for arcs
+                point3 = CGPoint(x: point3.x+Config.bExtention, y: point3.y)
+                point2 = CGPoint(x: point2.x+Config.bExtention, y: point2.y)
+                
                 // Get Segments and add to segments
                 segments.append(Segment(point1, point4))
-                segments.append(Segment(centerPoint: point3, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true))
-                segments.append(Segment(centerPoint: point2, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true))
+                
+                segments.append(Segment(startLineStart: ext_14, startLineEnd: ext_15, centerPoint: point3, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true, endLineStart: ext_13, endLineEnd: ext_12))
+                
+                segments.append(Segment(startLineStart: ext_12, startLineEnd: ext_13, centerPoint: point2, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true, endLineStart: ext_11, endLineEnd: ext_10))
                 // set boolean for object
                 pathSet = true
             }
