@@ -23,6 +23,9 @@ class DrawViewController: UIViewController {
     var completeSegmentsShape : CAShapeLayer?
     var backgroundShape : CAShapeLayer?
     
+    var startCircle : CAShapeLayer?
+    var endCircle : CAShapeLayer?
+    
     
     // User path drawing
     
@@ -53,6 +56,8 @@ class DrawViewController: UIViewController {
         drawView.layer.setNeedsDisplay()
         // Draw new background shape
         drawSelectedShapeOutline()
+        // Draw indication circles
+        drawIndicationCircles()
     }
     
     @IBAction func nextButtonAction(_ sender: Any) {
@@ -71,6 +76,9 @@ class DrawViewController: UIViewController {
         drawView.layer.setNeedsDisplay()
         // Draw new background shape
         drawSelectedShapeOutline()
+        // Draw indication circles
+        drawIndicationCircles()
+        
     }
     
     @IBAction func repeatButtonAction(_ sender: Any) {
@@ -83,6 +91,8 @@ class DrawViewController: UIViewController {
         drawView.layer.setNeedsDisplay()
         // Set finished to false
         shapeComplete = false
+        // Draw indication circles
+        drawIndicationCircles()
     }
     
     @IBAction func randomButtonAction(_ sender: Any) {
@@ -101,6 +111,8 @@ class DrawViewController: UIViewController {
         shapeComplete = false
         // Draw new background shape
         drawSelectedShapeOutline()
+        // Draw indication circles
+        drawIndicationCircles()
     }
 
     
@@ -379,7 +391,9 @@ class DrawViewController: UIViewController {
     }
     
     func drawCompletedSegments() {
+        
         if completedSegments.count > 0 {
+            
             // Remove old segment layer
             completeSegmentsShape?.removeFromSuperlayer()
             // User completed segments config
@@ -399,7 +413,37 @@ class DrawViewController: UIViewController {
             // Add shape layer to drawView
             drawView.layer.addSublayer(completeSegmentsShape!)
         }
+        // draw indication circles
+        drawIndicationCircles()
     }
+    
+    // Function to setup and draw the start and end circles
+    func drawIndicationCircles() {
+        startCircle?.removeFromSuperlayer()
+        endCircle?.removeFromSuperlayer()
+        if !shapeComplete {
+            // start circle config
+            startCircle = CAShapeLayer()
+            startCircle?.fillColor = Config.scFillColor.cgColor
+            startCircle?.strokeColor = Config.scLineColor.cgColor
+            startCircle?.lineWidth = Config.scLineWidth
+            // end circle config
+            endCircle = CAShapeLayer()
+            endCircle?.fillColor = Config.ecFillColor.cgColor
+            endCircle?.strokeColor = Config.ecLineColor.cgColor
+            endCircle?.lineWidth = Config.ecLineWidth
+            // start circle path
+            startCircle?.path = UIBezierPath(arcCenter: activeShape?.getSegment(at: completedSegments.count)?.getStartingPoint() ?? CGPoint(x: 0, y: 0), radius: Config.scStartRadius, startAngle: CGFloat(0), endAngle: CGFloat.pi*2, clockwise: true).cgPath
+            // end circle path
+            endCircle?.path = UIBezierPath(arcCenter: activeShape?.getSegment(at: completedSegments.count)?.getEndingPoint() ?? CGPoint(x: 0, y: 0), radius: Config.ecStartRadius, startAngle: CGFloat(0), endAngle: CGFloat.pi*2, clockwise: true).cgPath
+            
+            // add sublayers to drawView
+            drawView.layer.addSublayer(startCircle!)
+            drawView.layer.addSublayer(endCircle!)
+        }
+    }
+    
+    
     
     /*
     func drawShapeLayer() {

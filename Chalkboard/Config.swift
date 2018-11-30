@@ -20,8 +20,18 @@ class Config {
     static var chalkboardSolidlineWidth : CGFloat = 10
     // Dashed line on chalkboard
     static var chalkboardDashedLineWidth : CGFloat = 5
-    
-    
+    // Start circle
+    static var scLineWidth : CGFloat = 2
+    static var scLineColor = UIColor(red: 0.1, green: 0.6, blue: 0.4, alpha: 0.9)
+    static var scStartRadius : CGFloat = 20
+    static var scEndRadius : CGFloat = 15
+    static var scFillColor = UIColor(red: 0.1, green: 0.6, blue: 0.5, alpha: 0.6)
+    // End circle
+    static var ecLineWidth : CGFloat = 2
+    static var ecLineColor = UIColor(red: 0.8, green: 0.3, blue: 0.2, alpha: 0.9)
+    static var ecStartRadius : CGFloat = 10
+    static var ecEndRadius : CGFloat = 20
+    static var ecFillColor = UIColor(red: 0.8, green: 0.3, blue: 0.2, alpha: 0.6)
     
     // Percentage of curve that line will take up.
     static var curvedSegmentLinePercent = 0.05
@@ -39,7 +49,7 @@ class Config {
     // User limitation configuration
     
     // Distance from line that user is allowed to err
-    static var distanceLimit : Double = 15.0
+    static var distanceLimit : Double = 20.0
     // Distance from starting point that user is allowed to err
     static var startRadiusLimit : Double = 15.0
     // Required percentage of the last line the user must complete
