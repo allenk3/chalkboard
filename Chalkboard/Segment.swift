@@ -130,17 +130,13 @@ class Segment : CustomStringConvertible {
         }else {
             newAngle = startAngle - abs(endAngle - startAngle) * CGFloat(percentBetween)
         }
-        //
-        while newAngle >= 2*CGFloat.pi {
-            newAngle = newAngle - (2*CGFloat.pi)
-        }
-        print("new Angle: ")
-        print(newAngle)
+        let zone = floor(newAngle/(CGFloat.pi/2))
+
         
         // Calculate zone of reference angle by dividing by 90 degrees or 1.5708 radians
-        let zone = floor(newAngle/(CGFloat.pi/2))
-        print("Zone: ")
-        print(zone)
+        
+        //print("Zone: ")
+        //print(zone)
         // Calculate reference angle and set booleans for negatives
         switch zone {
         case 3:
@@ -150,37 +146,37 @@ class Segment : CustomStringConvertible {
             
             // Calculate y
             y = radius * sin(newAngle)
-            print("x")
-            print(x)
-            print("y: ")
-            print(y)
+            //print("x")
+            //print(x)
+            //print("y: ")
+            //print(y)
         case 2:
             // Calculate x
-            x = -1 * radius * cos(newAngle)
-            // Calculate y
-            y = -1 * radius * sin(newAngle)
-            print("x")
-            print(x)
-            print("y: ")
-            print(y)
-        case 1:
-            // Calculate x
-            x = -1 * radius * cos(newAngle)
+            x = radius * cos(newAngle)
             // Calculate y
             y = radius * sin(newAngle)
-            print("x")
-            print(x)
-            print("y: ")
-            print(y)
+            //print("x")
+            //print(x)
+            //print("y: ")
+            //print(y)
+        case 1:
+            // Calculate x
+            x = radius * cos(newAngle)
+            // Calculate y
+            y = radius * sin(newAngle)
+            //print("x")
+            //print(x)
+            //print("y: ")
+            //print(y)
         case 0:
             // Calculate x
             x = radius * cos(newAngle)
             // Calculate y
             y = radius * sin(newAngle)
-            print("x")
-            print(x)
-            print("y: ")
-            print(y)
+            //print("x")
+            //print(x)
+            //print("y: ")
+            //print(y)
         default:
             //will never call
             // Calculate x

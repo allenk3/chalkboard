@@ -83,6 +83,15 @@ class Writeable {
                 pathSet = true
             }
             
+        case "C":
+            if !pathSet {
+                let centerpoint = CGPoint(x: frame.size.width/2, y: frame.size.height/2)
+                let radius = frame.size.width/2.2
+                segments.append(Segment(centerPoint: centerpoint, radius: radius, startAngle: CGFloat.pi*7/4, endAngle: CGFloat.pi/4, clockwise: false))
+                
+                pathSet = true
+            }
+            
         default:
             print("Error in shape")
         }
