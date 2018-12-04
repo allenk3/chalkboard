@@ -114,6 +114,23 @@ class Writeable {
                 pathSet = true
             }
             
+        case "2":
+            if !pathSet {
+                let bottomLineLength = frame.size.width/2
+                let radius = bottomLineLength/2
+                // Get the top arc point for the '2'
+                let topArcPoint = CGPoint(x: frame.size.width/2, y: Config.shapeDistanceFromTop + radius)
+                let arcEndPoint = Segment.pointBetweenArc(arcCenter: topArcPoint, radius: radius, startAngle: 5*CGFloat.pi/4, endAngle: CGFloat.pi/4, clockwise: true, percentBetween: 1.00)
+                let bottomLineStartPoint = CGPoint(x: frame.size.width/4, y: (frame.size.height - Config.shapeDistanceFromBottom))
+                let bottomLineEndPoint = CGPoint(x: (frame.size.width/4) + bottomLineLength, y: frame.size.height - Config.shapeDistanceFromBottom)
+
+                // first segment will consist of a curve and a straight line
+                segments.append(Segment(centerPoint: topArcPoint, radius: radius, startAngle: CGFloat.pi, endAngle: CGFloat.pi/4, clockwise: true, endLineStart: arcEndPoint, endLineEnd: bottomLineStartPoint))
+                // Second segment will just be a line
+                segments.append(Segment(bottomLineStartPoint, bottomLineEndPoint))
+                pathSet = true
+            }
+            
         default:
             print("Error in shape")
         }

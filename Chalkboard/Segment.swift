@@ -92,7 +92,39 @@ class Segment : CustomStringConvertible {
         
     }
     
-    
+    // Initializer for segment with 1 curved Line, then a straight line
+    init(centerPoint: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool, endLineStart: CGPoint, endLineEnd: CGPoint) {
+        // Add the complete line in order
+        completeLine = UIBezierPath()
+        let lastLine = UIBezierPath()
+        
+        lastLine.move(to: endLineStart)
+        lastLine.addLine(to: endLineEnd)
+        completeLine.append(UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise))
+        completeLine.append(lastLine)
+        
+        var newStart : CGPoint
+        var newEnd : CGPoint
+        
+        // Iterate through curve
+        newStart = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: 0.0)
+        for percent in stride(from: Config.curvedSegmentLinePercent, through: 1.0, by: Config.curvedSegmentLinePercent) {
+            //get next point and make line
+            newEnd = Segment.pointBetweenArc(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise, percentBetween: percent)
+            lines.append(Line(start: newStart, end: newEnd))
+            newStart = newEnd
+        }
+        
+        newStart = endLineStart
+        // Iterate through end line
+        for percent in stride(from: 0.1, through: 1.0, by: Config.straightSegmentLinePercent) {
+            //get next point and make line
+            newEnd = Segment.pointBetweenLine(point1: endLineStart, point2: endLineEnd, percentBetween: percent)
+            lines.append(Line(start: newStart, end: newEnd))
+            newStart = newEnd
+        }
+        
+    }
     
     func addLine(_ line : Line) {
         lines.append(line)
@@ -125,29 +157,38 @@ class Segment : CustomStringConvertible {
         
         // Calculate angle of new point
         var newAngle : CGFloat
-        if clockwise {
+        if clockwise && startAngle <= endAngle {
             newAngle = startAngle + abs(endAngle - startAngle) * CGFloat(percentBetween)
+        }else if clockwise && startAngle > endAngle {
+            newAngle = startAngle + (2*CGFloat.pi - startAngle + endAngle) * CGFloat(percentBetween)
+        }else if !clockwise && startAngle <= endAngle {
+            newAngle = startAngle - abs(endAngle - startAngle) * CGFloat(percentBetween)
         }else {
             newAngle = startAngle - abs(endAngle - startAngle) * CGFloat(percentBetween)
         }
+        // reduce newAngle to a less than 2pi
+        while newAngle > 2*CGFloat.pi {
+            newAngle = newAngle - 2*CGFloat.pi
+        }
+        print(newAngle)
         let zone = floor(newAngle/(CGFloat.pi/2))
 
         
         // Calculate zone of reference angle by dividing by 90 degrees or 1.5708 radians
         
         //print("Zone: ")
-        //print(zone)
+        print(zone)
         // Calculate reference angle and set booleans for negatives
         switch zone {
         case 3:
             // Calculate x
             x = radius * cos(newAngle)
-            print(radius)
+            //print(radius)
             
             // Calculate y
             y = radius * sin(newAngle)
-            //print("x")
-            //print(x)
+            print("x")
+            print(x)
             //print("y: ")
             //print(y)
         case 2:
@@ -155,8 +196,8 @@ class Segment : CustomStringConvertible {
             x = radius * cos(newAngle)
             // Calculate y
             y = radius * sin(newAngle)
-            //print("x")
-            //print(x)
+            print("x")
+            print(x)
             //print("y: ")
             //print(y)
         case 1:
@@ -164,8 +205,8 @@ class Segment : CustomStringConvertible {
             x = radius * cos(newAngle)
             // Calculate y
             y = radius * sin(newAngle)
-            //print("x")
-            //print(x)
+            print("x")
+            print(x)
             //print("y: ")
             //print(y)
         case 0:
@@ -173,8 +214,8 @@ class Segment : CustomStringConvertible {
             x = radius * cos(newAngle)
             // Calculate y
             y = radius * sin(newAngle)
-            //print("x")
-            //print(x)
+            print("x")
+            print(x)
             //print("y: ")
             //print(y)
         default:
