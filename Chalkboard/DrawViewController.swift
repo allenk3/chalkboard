@@ -22,6 +22,8 @@ class DrawViewController: UIViewController {
     var userInputShape : CAShapeLayer?
     var completeSegmentsShape : CAShapeLayer?
     var backgroundShape : CAShapeLayer?
+    var chalkboardLines : CAShapeLayer?
+    var chalkboardDashed : CAShapeLayer?
     
     var startCircle : CAShapeLayer?
     var endCircle : CAShapeLayer?
@@ -125,16 +127,18 @@ class DrawViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         drawView.clipsToBounds = true
         drawView.isMultipleTouchEnabled = false
+        activeShape = ChalkboardModel.shared.getSelectedShape()
         setupView()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-        self.tabBarController?.tabBar.isHidden = false
+    override func viewDidAppear(_ animated: Bool) {
+        activeShape = ChalkboardModel.shared.getSelectedShape()
+        setupView()
         super.viewWillAppear(animated)
     }
+    
+
     
     
     
@@ -326,17 +330,19 @@ class DrawViewController: UIViewController {
         drawView.backgroundColor = Config.drawScreenBackgroundColor
         // Draw chalkboard guide lines
         // Total solid background lines config
-        let chalkboardLines = CAShapeLayer()
-        chalkboardLines.lineWidth = Config.chalkboardSolidlineWidth
-        chalkboardLines.strokeColor = Config.drawScreenLineColor.cgColor
-        chalkboardLines.fillColor = UIColor.clear.cgColor
+        chalkboardLines?.removeFromSuperlayer()
+        chalkboardLines = CAShapeLayer()
+        chalkboardLines!.lineWidth = Config.chalkboardSolidlineWidth
+        chalkboardLines!.strokeColor = Config.drawScreenLineColor.cgColor
+        chalkboardLines!.fillColor = UIColor.clear.cgColor
         
         // Middle dashed background line config
-        let chalkboardDashed = CAShapeLayer()
-        chalkboardDashed.lineWidth = Config.chalkboardDashedLineWidth
-        chalkboardDashed.strokeColor = Config.drawScreenLineColor.cgColor
-        chalkboardDashed.fillColor = UIColor.clear.cgColor
-        chalkboardDashed.lineDashPattern = Config.lineDashPattern as [NSNumber]
+        chalkboardDashed?.removeFromSuperlayer()
+        chalkboardDashed = CAShapeLayer()
+        chalkboardDashed!.lineWidth = Config.chalkboardDashedLineWidth
+        chalkboardDashed!.strokeColor = Config.drawScreenLineColor.cgColor
+        chalkboardDashed!.fillColor = UIColor.clear.cgColor
+        chalkboardDashed!.lineDashPattern = Config.lineDashPattern as [NSNumber]
         
         // Draw top line
         let topLinePath = UIBezierPath()
@@ -355,12 +361,12 @@ class DrawViewController: UIViewController {
         
         // Add paths to background shape layer
         topLinePath.append(bottomLInePath)
-        chalkboardLines.path = topLinePath.cgPath
-        chalkboardDashed.path = dashedLine.cgPath
+        chalkboardLines!.path = topLinePath.cgPath
+        chalkboardDashed!.path = dashedLine.cgPath
         
         // render background layers
-        drawView.layer.addSublayer(chalkboardLines)
-        drawView.layer.addSublayer(chalkboardDashed)
+        drawView.layer.addSublayer(chalkboardLines!)
+        drawView.layer.addSublayer(chalkboardDashed!)
         
     }
     
