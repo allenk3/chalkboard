@@ -23,8 +23,8 @@ class ChalkboardModel {
         writeables[0] = [
             Writeable(title: "A", segments: []),
             Writeable(title: "B", segments: []),
-            Writeable(title: "C", segments: []),
-            Writeable(title: "D", segments: []),
+            Writeable(title: "C", segments: [])
+            /*Writeable(title: "D", segments: []),
             Writeable(title: "E", segments: []),
             Writeable(title: "F", segments: []),
             Writeable(title: "G", segments: []),
@@ -46,19 +46,19 @@ class ChalkboardModel {
             Writeable(title: "W", segments: []),
             Writeable(title: "X", segments: []),
             Writeable(title: "Y", segments: []),
-            Writeable(title: "Z", segments: [])
+            Writeable(title: "Z", segments: [])*/
         ]
         writeables.append([
             Writeable(title: "0", segments: []),
             Writeable(title: "1", segments: []),
-            Writeable(title: "2", segments: []),
-            Writeable(title: "3", segments: []),
+            Writeable(title: "2", segments: [])
+            /*Writeable(title: "3", segments: []),
             Writeable(title: "4", segments: []),
             Writeable(title: "5", segments: []),
             Writeable(title: "6", segments: []),
             Writeable(title: "7", segments: []),
             Writeable(title: "8", segments: []),
-            Writeable(title: "9", segments: [])
+            Writeable(title: "9", segments: [])*/
         ])
         selectedSet = 0
         selectedShape = nil
