@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		952BB97D21A16E0400C92811 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952BB97C21A16E0400C92811 /* DrawView.swift */; };
 		952BB97F21A16F3700C92811 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952BB97E21A16F3700C92811 /* Line.swift */; };
 		952BB98521A6255A00C92811 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952BB98421A6255A00C92811 /* Config.swift */; };
 		9547358621A62AC100D813AE /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9547358521A62AC100D813AE /* Segment.swift */; };
@@ -18,13 +17,13 @@
 		CCB64311218B7A710085C7A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB6430F218B7A710085C7A8 /* LaunchScreen.storyboard */; };
 		F91676E521A2743E00BCCED8 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91676E421A2743E00BCCED8 /* DrawViewController.swift */; };
 		F91676E721A2841500BCCED8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91676E621A2841500BCCED8 /* HomeViewController.swift */; };
+		F936982C21B642CC0000D833 /* CabinSketch-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F936982B21B642CC0000D833 /* CabinSketch-Regular.ttf */; };
 		F9FB86722198E14F00B5E6D6 /* Writeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FB86712198E14F00B5E6D6 /* Writeable.swift */; };
 		F9FB86742198E44400B5E6D6 /* ChalkboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FB86732198E44400B5E6D6 /* ChalkboardModel.swift */; };
 		F9FB86762198E62500B5E6D6 /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FB86752198E62500B5E6D6 /* SelectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		952BB97C21A16E0400C92811 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		952BB97E21A16F3700C92811 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		952BB98421A6255A00C92811 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		9547358521A62AC100D813AE /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
@@ -37,6 +36,7 @@
 		CCB64312218B7A710085C7A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F91676E421A2743E00BCCED8 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 		F91676E621A2841500BCCED8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F936982B21B642CC0000D833 /* CabinSketch-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CabinSketch-Regular.ttf"; sourceTree = "<group>"; };
 		F9FB86712198E14F00B5E6D6 /* Writeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Writeable.swift; sourceTree = "<group>"; };
 		F9FB86732198E44400B5E6D6 /* ChalkboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChalkboardModel.swift; sourceTree = "<group>"; };
 		F9FB86752198E62500B5E6D6 /* SelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +74,7 @@
 			children = (
 				CCB64304218B7A710085C7A8 /* AppDelegate.swift */,
 				CCB6430A218B7A710085C7A8 /* Main.storyboard */,
+				F936982B21B642CC0000D833 /* CabinSketch-Regular.ttf */,
 				F91676E621A2841500BCCED8 /* HomeViewController.swift */,
 				F91676E421A2743E00BCCED8 /* DrawViewController.swift */,
 				F9FB86712198E14F00B5E6D6 /* Writeable.swift */,
@@ -82,7 +83,6 @@
 				CCB6430D218B7A710085C7A8 /* Assets.xcassets */,
 				CCB6430F218B7A710085C7A8 /* LaunchScreen.storyboard */,
 				CCB64312218B7A710085C7A8 /* Info.plist */,
-				952BB97C21A16E0400C92811 /* DrawView.swift */,
 				952BB97E21A16F3700C92811 /* Line.swift */,
 				952BB98421A6255A00C92811 /* Config.swift */,
 				9547358521A62AC100D813AE /* Segment.swift */,
@@ -151,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCB64311218B7A710085C7A8 /* LaunchScreen.storyboard in Resources */,
+				F936982C21B642CC0000D833 /* CabinSketch-Regular.ttf in Resources */,
 				CCB6430E218B7A710085C7A8 /* Assets.xcassets in Resources */,
 				CCB6430C218B7A710085C7A8 /* Main.storyboard in Resources */,
 			);
@@ -165,7 +166,6 @@
 			files = (
 				F9FB86742198E44400B5E6D6 /* ChalkboardModel.swift in Sources */,
 				F9FB86722198E14F00B5E6D6 /* Writeable.swift in Sources */,
-				952BB97D21A16E0400C92811 /* DrawView.swift in Sources */,
 				9547358821A66CBE00D813AE /* Utility.swift in Sources */,
 				F91676E521A2743E00BCCED8 /* DrawViewController.swift in Sources */,
 				CCB64305218B7A710085C7A8 /* AppDelegate.swift in Sources */,
@@ -312,7 +312,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GUPMRADAR4;
+				DEVELOPMENT_TEAM = MHHLZ6U8L2;
 				INFOPLIST_FILE = Chalkboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -330,7 +330,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GUPMRADAR4;
+				DEVELOPMENT_TEAM = MHHLZ6U8L2;
 				INFOPLIST_FILE = Chalkboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

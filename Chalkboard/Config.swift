@@ -11,7 +11,7 @@ import UIKit
 
 class Config {
     // Background color
-    static var drawScreenBackgroundColor : UIColor = UIColor(red: 0.19, green: 0.62, blue: 0.1, alpha: 1)
+    static var drawScreenBackgroundColor : UIColor = UIColor(red: 0.067, green: 0.667, blue: 0.404, alpha: 1)
     // SubVie
     static var drawScreenLineColor : UIColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     // Line dash pattern for the chalkboard

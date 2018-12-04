@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +17,106 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjz-Vb-gLO">
+                                <rect key="frame" x="16" y="108" width="343" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="nmI-T1-nRk"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Chalkboard">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="64" name="CabinSketch-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwL-kV-YCD">
+                                <rect key="frame" x="16" y="350" width="343" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="4h5-OL-EdJ"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Benjamin Purtzer">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="24" name="CabinSketch-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gw6-tf-UX8">
+                                <rect key="frame" x="16" y="386" width="343" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="4Ra-T2-y5p"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="and">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="24" name="CabinSketch-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYz-eB-Z7v">
+                                <rect key="frame" x="16" y="422" width="343" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="NZQ-2f-TrF"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Kyle Allen">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="24" name="CabinSketch-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjP-2k-Bip">
+                                <rect key="frame" x="16" y="458" width="343" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="3N0-1t-SKa"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="CS356">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="24" name="CabinSketch-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.065076373519999994" green="0.66588068010000001" blue="0.4035851359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bjz-Vb-gLO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="8PD-yV-GnR"/>
+                            <constraint firstItem="jYz-eB-Z7v" firstAttribute="trailing" secondItem="MjP-2k-Bip" secondAttribute="trailing" id="E6M-Ap-4qu"/>
+                            <constraint firstItem="bjz-Vb-gLO" firstAttribute="trailing" secondItem="rwL-kV-YCD" secondAttribute="trailing" id="Iu1-9J-Va2"/>
+                            <constraint firstItem="gw6-tf-UX8" firstAttribute="trailing" secondItem="jYz-eB-Z7v" secondAttribute="trailing" id="OFA-cA-vLE"/>
+                            <constraint firstItem="rwL-kV-YCD" firstAttribute="leading" secondItem="gw6-tf-UX8" secondAttribute="leading" id="RA2-hW-oZ8"/>
+                            <constraint firstItem="bjz-Vb-gLO" firstAttribute="leading" secondItem="rwL-kV-YCD" secondAttribute="leading" id="SFI-eO-N7J"/>
+                            <constraint firstItem="bjz-Vb-gLO" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="aJb-kp-FN2"/>
+                            <constraint firstItem="gw6-tf-UX8" firstAttribute="leading" secondItem="jYz-eB-Z7v" secondAttribute="leading" id="aqr-fe-fsW"/>
+                            <constraint firstItem="rwL-kV-YCD" firstAttribute="trailing" secondItem="gw6-tf-UX8" secondAttribute="trailing" id="cWY-Vb-cxp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jYz-eB-Z7v" secondAttribute="bottom" constant="166" id="eIN-NF-A4t"/>
+                            <constraint firstItem="bjz-Vb-gLO" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="fj0-cM-OIv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gw6-tf-UX8" secondAttribute="bottom" constant="202" id="qKb-Dl-ria"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MjP-2k-Bip" secondAttribute="bottom" constant="130" id="scq-VF-AzQ"/>
+                            <constraint firstItem="MjP-2k-Bip" firstAttribute="top" secondItem="rwL-kV-YCD" secondAttribute="bottom" constant="29" id="uX5-qD-Dl6"/>
+                            <constraint firstItem="jYz-eB-Z7v" firstAttribute="leading" secondItem="MjP-2k-Bip" secondAttribute="leading" id="yc2-x2-jfW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
