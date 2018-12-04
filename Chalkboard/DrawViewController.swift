@@ -118,12 +118,6 @@ class DrawViewController: UIViewController {
     }
 
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
-    
     override func viewDidLayoutSubviews() {
         drawView.clipsToBounds = true
         drawView.isMultipleTouchEnabled = false
@@ -134,9 +128,15 @@ class DrawViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         activeShape = ChalkboardModel.shared.getSelectedShape()
+        completedSegments = []
+        completeSegmentsShape?.removeFromSuperlayer()
+        backgroundShape?.removeFromSuperlayer()
+        drawIndicationCircles()
+        print("ViewDidAppear")
         setupView()
         super.viewWillAppear(animated)
     }
+    
     
 
     
@@ -257,6 +257,7 @@ class DrawViewController: UIViewController {
         activeShape = ChalkboardModel.shared.getSelectedShape()
         // Draw Background
         drawBackground()
+        drawIndicationCircles()
         // Draw the selected shape outline
         drawSelectedShapeOutline()
         // Set the active segment depending on if the shape is completed
@@ -444,8 +445,8 @@ class DrawViewController: UIViewController {
             endCircle?.path = UIBezierPath(arcCenter: activeShape?.getSegment(at: completedSegments.count)?.getEndingPoint() ?? CGPoint(x: 0, y: 0), radius: Config.ecStartRadius, startAngle: CGFloat(0), endAngle: CGFloat.pi*2, clockwise: true).cgPath
             
             // add sublayers to drawView
-            drawView.layer.addSublayer(startCircle!)
             drawView.layer.addSublayer(endCircle!)
+            drawView.layer.addSublayer(startCircle!)
         }
     }
     

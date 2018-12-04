@@ -74,7 +74,7 @@ class Writeable {
                 point2 = CGPoint(x: point2.x+Config.bExtention, y: point2.y)
                 
                 // Get Segments and add to segments
-                segments.append(Segment(point1, point4))
+                segments.append(Segment(point4, point1))
                 
                 segments.append(Segment(startLineStart: ext_14, startLineEnd: ext_15, centerPoint: point3, radius: CGFloat(radius), startAngle: CGFloat.pi*1.5, endAngle: CGFloat.pi/2, clockwise: true, endLineStart: ext_13, endLineEnd: ext_12))
                 
@@ -105,12 +105,16 @@ class Writeable {
             
         case "1":
             if !pathSet {
+                let bottomLineLength = frame.size.width/2.3
                 let point1 = CGPoint(x: frame.size.width/2, y: frame.size.height - Config.shapeDistanceFromBottom)
                 let point2 = CGPoint(x: frame.size.width/2, y: Config.shapeDistanceFromTop)
-                let point3 = CGPoint(x: point2.x-75, y: point2.y+75)
+                let point3 = CGPoint(x: point2.x-bottomLineLength/2, y: point2.y+bottomLineLength/2)
+                let point4 = CGPoint(x: point1.x-bottomLineLength/2, y: frame.size.height - Config.shapeDistanceFromBottom)
+                let point5 = CGPoint(x: point1.x+bottomLineLength/2, y: frame.size.height - Config.shapeDistanceFromBottom)
                 
-                segments.append(Segment(point1, point2))
-                segments.append(Segment(point2, point3))
+                segments.append(Segment(point3, point2))
+                segments.append(Segment(point2, point1))
+                segments.append(Segment(point4, point5))
                 pathSet = true
             }
             

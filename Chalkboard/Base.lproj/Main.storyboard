@@ -71,7 +71,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTj-kl-Sbw">
-                                <rect key="frame" x="16" y="178" width="343" height="440"/>
+                                <rect key="frame" x="16" y="194" width="343" height="396"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -81,6 +81,8 @@
                             <constraint firstItem="6nj-WK-nyH" firstAttribute="leading" secondItem="LGU-lK-MYU" secondAttribute="leading" constant="16" id="2hG-J0-zs5"/>
                             <constraint firstItem="LGU-lK-MYU" firstAttribute="trailing" secondItem="QTj-kl-Sbw" secondAttribute="trailing" constant="16" id="8Fk-J6-k6z"/>
                             <constraint firstItem="6nj-WK-nyH" firstAttribute="top" secondItem="mYl-Vi-yQC" secondAttribute="bottom" constant="8" id="92N-Ym-U25"/>
+                            <constraint firstItem="QTj-kl-Sbw" firstAttribute="top" secondItem="nLU-qO-eOX" secondAttribute="bottom" constant="45" id="C5G-rf-Zhz"/>
+                            <constraint firstItem="LGU-lK-MYU" firstAttribute="bottom" secondItem="QTj-kl-Sbw" secondAttribute="bottom" constant="28" id="DGs-T7-sOm"/>
                             <constraint firstItem="QTj-kl-Sbw" firstAttribute="bottom" secondItem="LGU-lK-MYU" secondAttribute="bottom" id="FKB-VA-gZd"/>
                             <constraint firstItem="LGU-lK-MYU" firstAttribute="trailing" secondItem="NPl-bG-PaP" secondAttribute="trailing" constant="16" id="GTX-Vx-YPF"/>
                             <constraint firstItem="6nj-WK-nyH" firstAttribute="top" secondItem="mYl-Vi-yQC" secondAttribute="bottom" constant="8" id="MXb-ia-gNB"/>
@@ -93,7 +95,6 @@
                             <constraint firstItem="LGU-lK-MYU" firstAttribute="trailing" secondItem="mYl-Vi-yQC" secondAttribute="trailing" constant="16" id="dkc-2h-wbL"/>
                             <constraint firstItem="mYl-Vi-yQC" firstAttribute="top" secondItem="LGU-lK-MYU" secondAttribute="top" constant="23" id="oMu-mz-zob"/>
                             <constraint firstItem="QTj-kl-Sbw" firstAttribute="leading" secondItem="LGU-lK-MYU" secondAttribute="leading" constant="16" id="rKU-Yq-N6E"/>
-                            <constraint firstItem="QTj-kl-Sbw" firstAttribute="top" secondItem="nLU-qO-eOX" secondAttribute="bottom" constant="29" id="yd8-eS-l9C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LGU-lK-MYU"/>
                     </view>
